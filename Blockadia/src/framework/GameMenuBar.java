@@ -26,8 +26,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
 public class GameMenuBar extends JMenuBar {
-
 	public GameMenuBar(){
+		setPreferredSize(new Dimension(GamePanel.DEFAULT_WIDTH, 22));
+	}
+/*
 		
 		JMenu fileMenu,settingsMenu,helpMenu;
 		JMenuItem menuItem;
@@ -244,5 +246,5 @@ public class GameMenuBar extends JMenuBar {
 		GameMenuBar.setPreferredSize(new Dimension((width/4)*scale*2+width*scale, 22));
 		GameMenuBar.setBackground(Color.GRAY);
 
-	}
+	}*/
 }

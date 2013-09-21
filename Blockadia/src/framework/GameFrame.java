@@ -35,6 +35,9 @@ public class GameFrame  extends JFrame {
 		//side = new TestbedSidePanel(model, controller);
 		menu = new GameMenuBar();
 		setJMenuBar(menu);
+		
+		controller = new GameController(model,argPanel);
+		side = new GameSidePanel(model,controller);
 		add((Component) argPanel, "Center");
 		add(new JScrollPane(side), "East");
 		pack();
