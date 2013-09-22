@@ -28,14 +28,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class GameMenuBar extends JMenuBar {
 	public GameMenuBar(){
 		setPreferredSize(new Dimension(GamePanel.DEFAULT_WIDTH, 22));
-	}
-/*
-		
 		JMenu fileMenu,settingsMenu,helpMenu;
 		JMenuItem menuItem;
 
-		//Build the first menu.
-		fileMenu = new JMenu("File");
+		//Build fileMenu
+		fileMenu = new JMenu("File   ");
 		fileMenu.setMnemonic(KeyEvent.VK_A);
 		fileMenu.getAccessibleContext().setAccessibleDescription(
 				"File options");
@@ -46,7 +43,7 @@ public class GameMenuBar extends JMenuBar {
 		//a group of JMenuItems
 		ImageIcon icon = null;
 		Image image = null;
-		icon = new ImageIcon("res/New-Icon.png");
+		icon = new ImageIcon("res/menu/New-Icon.png");
 		image=icon.getImage().getScaledInstance(18, 18, 0);
 		icon.setImage(image);
 		menuItem = new JMenuItem(" New ",
@@ -57,7 +54,7 @@ public class GameMenuBar extends JMenuBar {
 				"Create a new game configuration");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(animationWindow.getMode()==true){
+				/*if(animationWindow.getMode()==true){
 					//stop the game if it is running
 					animationWindow.setMode(false);
 				}
@@ -82,12 +79,12 @@ public class GameMenuBar extends JMenuBar {
 				}
 
 				animationWindow.newGameConfiguration(null);
-				panel.requestFocusInWindow();
+				panel.requestFocusInWindow();*/
 			}
 		});
 		fileMenu.add(menuItem);
 
-		icon = new ImageIcon("res/Open-Icon.png");
+		icon = new ImageIcon("res/menu/Open-Icon.png");
 		image=icon.getImage().getScaledInstance(18, 18, 0);
 		icon.setImage(image);
 		menuItem = new JMenuItem(" Open ",icon);
@@ -97,7 +94,7 @@ public class GameMenuBar extends JMenuBar {
 				"Load an existing game configuration");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(animationWindow.getMode()==true){
+				/*if(animationWindow.getMode()==true){
 					//stop the game if it is running
 					animationWindow.setMode(false);
 				}
@@ -145,13 +142,13 @@ public class GameMenuBar extends JMenuBar {
 
 				if(mode != GAME_MODE){// in the build mode
 					panel.requestFocusInWindow();
-				}
+				}*/
 			}
 		});
 		fileMenu.add(menuItem);
 		fileMenu.addSeparator();
 
-		icon = new ImageIcon("res/Save-Icon.png");
+		icon = new ImageIcon("res/menu/Save-Icon.png");
 		image=icon.getImage().getScaledInstance(18, 18, 0);
 		icon.setImage(image);
 		menuItem = new JMenuItem(" Save ",icon);
@@ -162,19 +159,19 @@ public class GameMenuBar extends JMenuBar {
 
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				/*
 				if(animationWindow.getMode()==true){
 					//stop the game if it is running
 					animationWindow.setMode(false);
 				}
-				saveConfig();
+				saveConfig();*/
 			}
 		});
 
 
 		fileMenu.add(menuItem);
 
-		icon = new ImageIcon("res/Save-As-Icon.png");
+		icon = new ImageIcon("res/menu/Save-As-Icon.png");
 		image=icon.getImage().getScaledInstance(18, 18, 0);
 		icon.setImage(image);
 		menuItem = new JMenuItem(" Save As ",icon);
@@ -185,13 +182,13 @@ public class GameMenuBar extends JMenuBar {
 
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				/*
 				if(animationWindow.getMode()==true){
 					//stop the game if it is running
 					animationWindow.setMode(false);
 				}
 				Configuration.loadedConfig = null;
-				saveConfig();
+				saveConfig();*/
 			}
 		});
 
@@ -207,12 +204,12 @@ public class GameMenuBar extends JMenuBar {
 		fileMenu.add(menuItem);
 
 		//Build second menu in the menu bar.
-		settingsMenu = new JMenu("Settings");
+		settingsMenu = new JMenu("Settings   ");
 		settingsMenu.setBackground(Color.GRAY);
 		settingsMenu.setMnemonic(KeyEvent.VK_0);//TODO
 		settingsMenu.getAccessibleContext().setAccessibleDescription(
 				"Settings");
-		GameMenuBar.add(settingsMenu);
+		add(settingsMenu);
 
 		menuItem = new JMenuItem("Advanced ");
 		menuItem.setAccelerator(KeyStroke.getKeyStroke(
@@ -222,12 +219,12 @@ public class GameMenuBar extends JMenuBar {
 		settingsMenu.add(menuItem);
 
 		//Build third menu in the menu bar.
-		helpMenu = new JMenu("Help");
+		helpMenu = new JMenu("Help        ");
 		helpMenu.setBackground(Color.GRAY);
 		helpMenu.setMnemonic(KeyEvent.VK_9);//TODO
 		helpMenu.getAccessibleContext().setAccessibleDescription(
 				"Help");
-		GameMenuBar.add(helpMenu);
+		add(helpMenu);
 
 		menuItem = new JMenuItem("About Gizmoball ");
 		// menuItem.setAccelerator(KeyStroke.getKeyStroke(
@@ -242,9 +239,6 @@ public class GameMenuBar extends JMenuBar {
 		menuItem.getAccessibleContext().setAccessibleDescription(
 				"Credits");
 		helpMenu.add(menuItem);
+	}
 
-		GameMenuBar.setPreferredSize(new Dimension((width/4)*scale*2+width*scale, 22));
-		GameMenuBar.setBackground(Color.GRAY);
-
-	}*/
 }

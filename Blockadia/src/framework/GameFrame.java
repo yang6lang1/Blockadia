@@ -30,16 +30,17 @@ public class GameFrame  extends JFrame {
 		setLayout(new BorderLayout());
 		
 		model = argModel;
-		//model.setDebugDraw(argPanel.getDebugDraw());
-		//controller = new TestbedController(model, argPanel, behavior);
-		//side = new TestbedSidePanel(model, controller);
-		menu = new GameMenuBar();
+
+		menu = new GameMenuBar();//TODO: rework on the GameMenuBar constructor
 		setJMenuBar(menu);
+		infoBar = new GameInfoBar();
+		add(infoBar,"South");
 		
 		controller = new GameController(model,argPanel);
 		side = new GameSidePanel(model,controller);
 		add((Component) argPanel, "Center");
-		add(new JScrollPane(side), "East");
+		//add(new JScrollPane(side), "East");
+		add(side,"East");
 		pack();
 
 		//controller.playTest(0);
