@@ -40,7 +40,7 @@ public class GameFrame  extends JFrame {
 		side = new GameSidePanel(model,controller);
 		add((Component) argPanel, "Center");
 		//add(new JScrollPane(side), "East");
-		add(side,"East");
+		add(new JScrollPane(side),"East");
 		pack();
 
 		//controller.playTest(0);
