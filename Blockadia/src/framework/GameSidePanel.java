@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import framework.GameModel.ListItem;
@@ -43,9 +44,9 @@ public class GameSidePanel extends JPanel implements ActionListener{
 	private JButton playPauseButton = new JButton("Play");
 	private JButton resetButton = new JButton("Reset");
 	private JButton addButton = new JButton("Add");
-	private JButton deleteButton = new JButton("Delete...");
-	private JButton newButton = new JButton("New...");
-	private JButton editButton = new JButton("Edit...");
+	private JButton deleteButton = new JButton("Delete");
+	private JButton newButton = new JButton("New");
+	private JButton editButton = new JButton("Edit");
   private JLabel gameNameLabel = new JLabel();
   private JLabel shapePreview = new JLabel();
 	private JTextField gameName = new JTextField("Gimzoball");
@@ -64,26 +65,27 @@ public class GameSidePanel extends JPanel implements ActionListener{
 	}
 
 	public void initComponents() {
-		setLayout(new BorderLayout());
+		
+		setLayout(null);
 		setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
+		
 		//top panel: control panel
 		JPanel controlPanel = new JPanel();
 		controlPanel.setLayout(new GridLayout(0, 1));
 		controlPanel.setBorder(BorderFactory.createCompoundBorder(new EtchedBorder(EtchedBorder.LOWERED),
-				BorderFactory.createEmptyBorder(2, 2, 2, 2)));
-
+				BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		controlPanel.setBounds(5,5,230,100);
+		
 		modeButton.setAlignmentX(CENTER_ALIGNMENT);
 		playPauseButton.setAlignmentX(CENTER_ALIGNMENT);
 		resetButton.setAlignmentX(CENTER_ALIGNMENT);
-		
 		ImageIcon icon = null;
 		Image image=null;
 
 		icon = new ImageIcon("res/side/Build-Icon.png");
 		image=icon.getImage().getScaledInstance(70, 50,java.awt.Image.SCALE_SMOOTH);
 		icon.setImage(image);
-		modeButton=new JButton("Build",icon);
+		modeButton=new JButton("Build Mode",icon);
 		modeButton.setHorizontalTextPosition(JButton.CENTER);
 		modeButton.setVerticalTextPosition(JButton.TOP);
 		modeButton.setToolTipText("Click to enter game mode");
@@ -94,7 +96,6 @@ public class GameSidePanel extends JPanel implements ActionListener{
 		icon.setImage(image);
 		playPauseButton=new JButton("  Play",icon);
 		playPauseButton.setToolTipText("Click to start the game.");
-
 		icon = new ImageIcon("res/side/Reset-Icon.png");
 		image=icon.getImage().getScaledInstance(25,25,java.awt.Image.SCALE_SMOOTH);
 		icon.setImage(image);
@@ -114,76 +115,58 @@ public class GameSidePanel extends JPanel implements ActionListener{
 		buttonGroups.add(buttons1);
 		buttonGroups.add(buttons2);
 		controlPanel.add(buttonGroups);
-		add(controlPanel, "North");
-
+		add(controlPanel);
+		
 		//center panel: option panel
 		JPanel optionPanel = new JPanel();
-		optionPanel.setLayout(new GridLayout(0, 1));
+		optionPanel.setLayout(null);
 		optionPanel.setBorder(BorderFactory.createCompoundBorder(new EtchedBorder(EtchedBorder.LOWERED),
 				BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		
-		JPanel optionPanelTop = new JPanel(new BorderLayout());
+		optionPanel.setBounds(5,105,230,345);
 		gameNameLabel = new JLabel("Current Game:");
 		gameName = new JTextField("Gimzoball");
 		gameName.setColumns(10);
 		gameName.setEditable(false);
 		gameName.setToolTipText("To change a game, please click File-> Open/New");
 		gameNameLabel.setToolTipText("To change a game, please click File-> Open/New");
-		gameNameLabel.setSize(new Dimension(100,20));
-		gameName.setSize(new Dimension(100,20));
+		gameNameLabel.setBounds(10,5,210,20);
+		gameName.setBounds(10,25,210,25);
 		gameNameLabel.setLabelFor(gameName);
-
-		optionPanelTop.add(gameNameLabel,BorderLayout.LINE_START);
-		optionPanelTop.add(gameName,BorderLayout.LINE_END);
-		optionPanel.add(optionPanelTop);
+		optionPanel.add(gameNameLabel);
+		optionPanel.add(gameName);
 
 		components = new JComboBox<ListItem>(model.getComboModel());
-		components.setMaximumRowCount(20);
+		components.setMaximumRowCount(30);
 		components.addActionListener(this);
-		
-		optionPanel.add(new JLabel("Choose a Shape:"));
+		components.setBounds(10,70,160,25);
+		JLabel chooseAShape =new JLabel("Choose a Shape:");
+		addButton = new JButton("Add");
+		addButton.setToolTipText("Click to add the selected block shape into the game board");
+		addButton.setBounds(170,70,50,25);
+		chooseAShape.setBounds(10,50,210,20);
+		optionPanel.add(addButton);
+		optionPanel.add(chooseAShape);
 		optionPanel.add(components);
 		
-		addButton.setAlignmentX(CENTER_ALIGNMENT);
-		deleteButton.setAlignmentX(CENTER_ALIGNMENT);
-		newButton.setAlignmentX(CENTER_ALIGNMENT);
-		editButton.setAlignmentX(CENTER_ALIGNMENT);
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(0,3));
+		buttonPanel.setBounds(10,97,210,25);
+		buttonPanel.add(newButton);
+		buttonPanel.add(editButton);
+		buttonPanel.add(deleteButton);
+		optionPanel.add(buttonPanel);
 		
-		addButton=new JButton("Add");
-		addButton.setToolTipText("Click to add the selected block shape into the game board");
-		addButton.setPreferredSize(new Dimension(80,40));
-		deleteButton=new JButton("Delete...");
-		deleteButton.setToolTipText("Click to delete the selected block shape");
-		deleteButton.setPreferredSize(new Dimension(80,40));
-		newButton=new JButton("New...");
-		newButton.setToolTipText("Click to create your new block shape");
-		newButton.setPreferredSize(new Dimension(80,40));
-		editButton=new JButton("Edit...");
-		editButton.setToolTipText("Click to edit the selected block shape");
-		editButton.setPreferredSize(new Dimension(80,40));
-		
-		Box buttonGroups2 = Box.createVerticalBox();
-		JPanel buttons3 = new JPanel();
-		buttons3.add(addButton);
-		buttons3.add(newButton);
+		JPanel previewPanel = new JPanel();
+		previewPanel.setBounds(10, 125, 210, 210);
+		previewPanel.setBorder(BorderFactory.createCompoundBorder(new EtchedBorder(EtchedBorder.LOWERED),
+				BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		previewPanel.setLayout(new BorderLayout());
+		shapePreview = new JLabel("No block shape selected");
+		shapePreview.setHorizontalAlignment(JButton.CENTER);
+		previewPanel.add(shapePreview,"Center");
+		optionPanel.add(previewPanel);
 
-		JPanel buttons4 = new JPanel();
-		buttons4.add(deleteButton);
-		buttons4.add(editButton);
-
-		buttonGroups2.add(buttons3);
-		buttonGroups2.add(buttons4);
-		JPanel buttonPanel = new JPanel(new GridLayout(0, 1));
-		buttonPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-		buttonPanel.add(buttonGroups2);
-		optionPanel.add(buttonPanel,"Center");
-
-		
-		shapePreview = new JLabel();
-		shapePreview.setPreferredSize(new Dimension(200,200));
-		shapePreview.setBorder(BorderFactory.createLineBorder(Color.black));
-		optionPanel.add(shapePreview);
-		add(optionPanel, "Center");
+		add(optionPanel);
 
 	}
 
@@ -193,7 +176,7 @@ public class GameSidePanel extends JPanel implements ActionListener{
 				//TODO
 				if(!test){
 					try {
-						buttonRenderer(ButtonType.TEXT_IMAGE, modeButton, "Build", "Click to enter game mode.", 
+						buttonRenderer(ButtonType.TEXT_IMAGE, modeButton, "Build Mode", "Click to enter game mode.", 
 								"res/side/Build-Icon.png", new Rectangle(0,0,65, 50));
 						playPauseButton.setEnabled(true);
 						resetButton.setEnabled(true);
@@ -204,7 +187,7 @@ public class GameSidePanel extends JPanel implements ActionListener{
 					test=true;
 				}else{
 					try {
-						buttonRenderer(ButtonType.TEXT_IMAGE, modeButton, "Game", "Click to enter build mode.", 
+						buttonRenderer(ButtonType.TEXT_IMAGE, modeButton, "Game Mode", "Click to enter build mode.", 
 								"res/side/Game-Icon.png", new Rectangle(0,0,65,50));
 						//1st: stop the game if it is running
 						//2nd: reset the looks of playPauseButton
