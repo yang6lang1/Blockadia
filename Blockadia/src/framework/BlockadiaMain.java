@@ -14,7 +14,6 @@ import org.jbox2d.common.Vec2;
  * */
 public class BlockadiaMain {
 	
-
   public static void main(String[] args) {
     try {
       UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
