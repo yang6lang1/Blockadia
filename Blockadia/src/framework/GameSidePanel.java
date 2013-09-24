@@ -144,7 +144,7 @@ public class GameSidePanel extends JPanel implements ActionListener{
 		components = new JComboBox<BlockShape>(model.getComboModel());
 		components.setMaximumRowCount(30);
 		components.addActionListener(this);
-		components.setBounds(10,70,160,25);
+		components.setBounds(10,70,140,25);
 		components.setSelectedItem(new BlockShape("Select a shape"));
 		components.setRenderer(new ListCellRenderer<BlockShape>(){
 			JLabel shapeLabel = null;
@@ -171,7 +171,7 @@ public class GameSidePanel extends JPanel implements ActionListener{
 		});
 		addButton = new JButton("Add");
 		addButton.setToolTipText("Click to add the selected block shape into the game board");
-		addButton.setBounds(170,70,50,25);
+		addButton.setBounds(150,70,70,25);
 		optionPanel.add(chooseAShape);
 		optionPanel.add(components);
 		optionPanel.add(addButton);
