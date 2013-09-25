@@ -21,6 +21,9 @@ import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EtchedBorder;
 
+import utility.TextFieldWithPlaceHolder;
+import utility.TextFieldWithPlaceHolder.StringType;
+
 import components.BlockShape;
 
 /**
@@ -52,7 +55,7 @@ public class GameSidePanel extends JPanel implements ActionListener{
 	private JButton editButton = new JButton("Edit");
   private JLabel gameNameLabel = new JLabel();
   private JLabel shapePreview = new JLabel();
-	private JTextField gameName = new JTextField("Gimzoball");
+  private TextFieldWithPlaceHolder gameName = new TextFieldWithPlaceHolder("Gizmoball",StringType.PLACEHOLDER);
 	public static boolean test =true;//TODO:DELETE LATER
 	private ButtonType buttonType;
 	private NewShapeWindow window;
@@ -128,7 +131,7 @@ public class GameSidePanel extends JPanel implements ActionListener{
 				BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		optionPanel.setBounds(5,105,230,345);
 		gameNameLabel = new JLabel("Current Game:");
-		gameName = new JTextField("Gimzoball");
+		gameName = new TextFieldWithPlaceHolder("Gizmoball");
 		gameName.setColumns(10);
 		gameName.setEditable(false);
 		gameName.setToolTipText("To change a game, please click File-> Open/New");

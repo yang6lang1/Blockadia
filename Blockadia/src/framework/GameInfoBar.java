@@ -23,7 +23,7 @@ public class GameInfoBar extends JPanel {
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(GamePanel.DEFAULT_WIDTH + GameSidePanel.SIDE_PANEL_WIDTH,20));
 		JLabel space = new JLabel(" ");
-		space.setPreferredSize(new Dimension(20,20));
+		space.setPreferredSize(new Dimension(10,20));
 		add(space,BorderLayout.WEST);
 		info = new JLabel("Welcome to Blockadia!");
 		info.setToolTipText("Game information");

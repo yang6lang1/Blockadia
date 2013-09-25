@@ -13,6 +13,9 @@ import javax.swing.JScrollPane;
  * {@link #setVisible(boolean)} and
  * {@link #setDefaultCloseOperation(int)}.
  * 
+ * Warnign: All the interface components boundings are hard-coded so please don't change the
+ * frame size. 
+ * 
  * @author alex.yang
  **/
 

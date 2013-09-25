@@ -15,6 +15,8 @@ public class NewShapeWindow extends JDialog {
 
 	private GameSidePanel gsp;
 	private NewShapeWindowBuildPanel buildPanel;
+	private NewShapeWindowSidePanel sidePanel;
+	
 
 	public NewShapeWindow(GameFrame frame, GameSidePanel parent){
 		super(frame,true);
@@ -23,6 +25,8 @@ public class NewShapeWindow extends JDialog {
 		
 		buildPanel = new NewShapeWindowBuildPanel();
 		this.add((Component) buildPanel, "Center");
+		sidePanel = new NewShapeWindowSidePanel(buildPanel);
+		this.add((Component) sidePanel, "East");
 		
 		this.setTitle("New Shape");
 		this.setResizable(false);
