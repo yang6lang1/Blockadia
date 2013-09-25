@@ -237,7 +237,7 @@ public class GameSidePanel extends JPanel implements ActionListener{
 				//TODO
         if (test) {
 					try {
-						buttonRenderer(ButtonType.TEXT_IMAGE, playPauseButton, "   Stop", "Click to pause the game.", 
+						buttonRenderer(ButtonType.TEXT_IMAGE, playPauseButton, "  Stop", "Click to pause the game.", 
 								"res/side/Pause-Icon.png", new Rectangle(0,0,25,25));
 					} catch (Exception e1) {
 						System.out.println(e1);
