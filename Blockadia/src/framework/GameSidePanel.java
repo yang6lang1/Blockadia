@@ -1,7 +1,7 @@
 package framework;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -11,20 +11,22 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.EtchedBorder;
 
-import framework.GameModel.ListItem;
+import components.BlockShape;
 
 /**
- * The control panel at the side
+ * This class has all the GUI rendering about the side panel
+ * The sources of data for all the JComponents are from GameModel.java
+ * eg: JComboBox
  * 
  * @author alex.yang
  **/
@@ -39,6 +41,7 @@ public class GameSidePanel extends JPanel implements ActionListener{
 	
 	final GameModel model;
 	final GameController controller;
+	final GameFrame frame;
 	
 	private JButton modeButton = new JButton("Game");
 	private JButton playPauseButton = new JButton("Play");
@@ -52,11 +55,12 @@ public class GameSidePanel extends JPanel implements ActionListener{
 	private JTextField gameName = new JTextField("Gimzoball");
 	public static boolean test =true;//TODO:DELETE LATER
 	private ButtonType buttonType;
+	private NewShapeWindow window;
 
-  public JComboBox<ListItem> components;
+  public JComboBox<BlockShape> components;
   
-	public GameSidePanel(GameModel model, GameController controller){
-
+	public GameSidePanel(GameFrame frame, GameModel model, GameController controller){
+		this.frame = frame;
 		this.model = model;
 		this.controller = controller;
 		setPreferredSize(new Dimension(SIDE_PANEL_WIDTH, GamePanel.DEFAULT_HEIGHT));
@@ -134,19 +138,43 @@ public class GameSidePanel extends JPanel implements ActionListener{
 		gameNameLabel.setLabelFor(gameName);
 		optionPanel.add(gameNameLabel);
 		optionPanel.add(gameName);
-
-		components = new JComboBox<ListItem>(model.getComboModel());
+		
+		JLabel chooseAShape =new JLabel("Choose a Shape:");
+		chooseAShape.setBounds(10,50,210,20);
+		components = new JComboBox<BlockShape>(model.getComboModel());
 		components.setMaximumRowCount(30);
 		components.addActionListener(this);
 		components.setBounds(10,70,160,25);
-		JLabel chooseAShape =new JLabel("Choose a Shape:");
+		components.setSelectedItem(new BlockShape("Select a shape"));
+		components.setRenderer(new ListCellRenderer<BlockShape>(){
+			JLabel shapeLabel = null;
+			
+			@Override
+			public Component getListCellRendererComponent(
+					JList<? extends BlockShape> list, BlockShape value, int index,
+					boolean isSelected, boolean cellHasFocus) {
+				if (shapeLabel == null) {
+					shapeLabel = new JLabel();
+					shapeLabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 1, 0));
+				}
+				shapeLabel.setText(value.getShapeName());
+
+				if (isSelected) {
+					shapeLabel.setBackground(list.getSelectionBackground());
+					shapeLabel.setForeground(list.getSelectionForeground());
+				} else {
+					shapeLabel.setBackground(list.getBackground());
+					shapeLabel.setForeground(list.getForeground());
+				}
+				return shapeLabel;
+			}
+		});
 		addButton = new JButton("Add");
 		addButton.setToolTipText("Click to add the selected block shape into the game board");
 		addButton.setBounds(170,70,50,25);
-		chooseAShape.setBounds(10,50,210,20);
-		optionPanel.add(addButton);
 		optionPanel.add(chooseAShape);
 		optionPanel.add(components);
+		optionPanel.add(addButton);
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(0,3));
@@ -209,7 +237,7 @@ public class GameSidePanel extends JPanel implements ActionListener{
 				//TODO
         if (test) {
 					try {
-						buttonRenderer(ButtonType.TEXT_IMAGE, playPauseButton, "  Stop", "Click to pause the game.", 
+						buttonRenderer(ButtonType.TEXT_IMAGE, playPauseButton, "   Stop", "Click to pause the game.", 
 								"res/side/Pause-Icon.png", new Rectangle(0,0,25,25));
 					} catch (Exception e1) {
 						System.out.println(e1);
@@ -235,7 +263,23 @@ public class GameSidePanel extends JPanel implements ActionListener{
 				//TODO
 			}
 		});
+		
+		newButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showNewShapeWindow();
+			}
+		});
 
+	}
+	
+	private void showNewShapeWindow(){
+		window = new NewShapeWindow(frame,this);
+		window.setLocationRelativeTo(frame);
+		window.setVisible(true);
+	}
+	
+	private void showEditShapeWindow(){
+		//TODO
 	}
 	/**
 	 * This is a helper class to be used to conveniently update the looks of button
@@ -298,6 +342,6 @@ public class GameSidePanel extends JPanel implements ActionListener{
 	}
   public void actionPerformed(ActionEvent e) {
   	//TODO:display a preview of the selected block shape
-    //controller.playTest(tests.getSelectedIndex());
+    System.out.println("Shape changed into: "+ ((BlockShape)(components.getSelectedItem())).getShapeName());
   }
 }

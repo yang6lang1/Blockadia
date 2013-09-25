@@ -13,7 +13,7 @@ import components.BlockShape;
  * */
 public class GameModel {
 
-	private final DefaultComboBoxModel<ListItem> components = new DefaultComboBoxModel<ListItem>();
+	private final DefaultComboBoxModel<BlockShape> components = new DefaultComboBoxModel<BlockShape>();
 	private final Vec2 mouse = new Vec2();
 	
 	private Config config;
@@ -21,6 +21,9 @@ public class GameModel {
 	private double calculatedFPS;
 	
 	public GameModel(){	
+		//for testing purpose:
+		components.addElement(new BlockShape());
+		components.addElement(new BlockShape("New Name"));
 	}
 	
 	public Config getCurrGameConfig(){
@@ -55,28 +58,7 @@ public class GameModel {
 		this.calculatedFPS = FPS;
 	}
 	
-	public DefaultComboBoxModel<ListItem> getComboModel(){
+	public DefaultComboBoxModel<BlockShape> getComboModel(){
 		return this.components;
-	}
-	public class ListItem{
-		public String category;
-		public BlockShape component;
-		
-		public ListItem(final String category){
-			this.category = category;
-		}
-		
-		public ListItem(final BlockShape component){
-			this.component = component;
-		}
-		
-    public boolean isCategory() {
-      return category != null;
-    }
-    
-    @Override
-    public String toString() {
-      return isCategory() ? category : component.getShapeName();
-    }
 	}
 }
