@@ -5,6 +5,7 @@ import javax.swing.DefaultComboBoxModel;
 import org.jbox2d.common.Vec2;
 
 import components.BlockShape;
+import exceptions.ElementExistsException;
 
 /**
  * Model of the Blockadia game
@@ -21,9 +22,9 @@ public class GameModel {
 	private double calculatedFPS;
 	
 	public GameModel(){	
-		//for testing purpose:
-		components.addElement(new BlockShape());
-		components.addElement(new BlockShape("New Name"));
+		//TODO: testing
+		config = new Config();
+		populateBlockShapes();
 	}
 	
 	public Config getCurrGameConfig(){
@@ -60,5 +61,25 @@ public class GameModel {
 	
 	public DefaultComboBoxModel<BlockShape> getComboModel(){
 		return this.components;
+	}
+	
+	/**
+	 * This method populates all the stored blockShape's from the loaded config
+	 * 
+	 * */
+	public void populateBlockShapes(){
+		for(BlockShape shape: config.getGameShapesList()){
+			components.addElement(shape);
+		}
+	}
+	
+	public void attachShapeToGame(BlockShape shape){
+		//TODO: make the config object dirty
+		try {
+			config.addGameShape(shape);
+		} catch (ElementExistsException e) {
+			// TODO handle element exist exception
+			e.printStackTrace();
+		}
 	}
 }

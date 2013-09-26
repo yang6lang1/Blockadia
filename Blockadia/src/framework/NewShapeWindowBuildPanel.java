@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import org.jbox2d.common.Vec2;
 
@@ -27,15 +28,19 @@ public class NewShapeWindowBuildPanel extends JPanel {
 	public static final int SHAPE_WIN_SIZE = 400;
 	private BlockShape blockShape;
 	private Color paintColor;
+	private boolean isDirty;
 	
 	public NewShapeWindowBuildPanel(){
+		this(new BlockShape());
+	}
+	
+	public NewShapeWindowBuildPanel(BlockShape blockShape){
+		this.blockShape = blockShape;
 		this.setPreferredSize(new Dimension(SHAPE_WIN_SIZE,SHAPE_WIN_SIZE));
 		setBackground(Color.black);
-		blockShape = new BlockShape("NONAME");
 		paintColor = DEFAULT_PAINT_COLOR;
 		
 		addListeners();
-		//this.requestFocusInWindow();
 	}
 	
 	public void setGridResolution(final Vec2 newResolution){
@@ -55,32 +60,69 @@ public class NewShapeWindowBuildPanel extends JPanel {
 		return this.paintColor;
 	}
 	
+	public void setIsDirty(final boolean isDirty){
+		this.isDirty = isDirty;
+	}
+	
+	public boolean checkIsDirty(){
+		return this.isDirty;
+	}
+	
 	public void addListeners(){
-    addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-//      	int numOfRows = (int)blockShape.getResolution().x;
-//      	int numOfCols = (int)blockShape.getResolution().y;
-
-      	int gridSize =  (int)(SHAPE_WIN_SIZE/(int)blockShape.getResolution().x);
-      	int col = (int)(e.getX()/gridSize);//which col is the clicked position
-      	int row = (int)(e.getY()/gridSize);//which row is the clicked position
-      	blockShape.setShapeElement(paintColor, row, col);
-      	repaint();
-      }
-    });
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(SwingUtilities.isLeftMouseButton(e)){				//if left click
+					if(e.getX() < SHAPE_WIN_SIZE && e.getY() < SHAPE_WIN_SIZE){
+						int gridSize =  (int)(SHAPE_WIN_SIZE/(int)blockShape.getResolution().x);
+						int col = (int)(e.getX()/gridSize);					//which col is the clicked position
+						int row = (int)(e.getY()/gridSize);					//which row is the clicked position
+						blockShape.setShapeElement(paintColor, row, col);
+						setIsDirty(true);
+						repaint();
+					}	
+				}
+				else if(SwingUtilities.isRightMouseButton(e)){	//if right click
+					if(e.getX() < SHAPE_WIN_SIZE && e.getY() < SHAPE_WIN_SIZE){
+						int gridSize =  (int)(SHAPE_WIN_SIZE/(int)blockShape.getResolution().x);
+						int col = (int)(e.getX()/gridSize);					//which col is the clicked position
+						int row = (int)(e.getY()/gridSize);					//which row is the clicked position
+						blockShape.setShapeElement(BlockShape.DEFAULT_COLOR, row, col);
+						setIsDirty(true);
+						repaint();
+					}			
+				}
+				
+			}
+		});
     
     
     addMouseMotionListener(new MouseMotionAdapter() {
       @Override
       public void mouseDragged(MouseEvent e) {
-      	//TODO
-      	System.out.println("Mouse dragged to:" + e.getX()+","+ e.getY());
-      	int gridSize =  (int)(SHAPE_WIN_SIZE/(int)blockShape.getResolution().x);
-      	int col = (int)(e.getX()/gridSize);//which col is the clicked position
-      	int row = (int)(e.getY()/gridSize);//which row is the clicked position
-      	blockShape.setShapeElement(paintColor, row, col);
-      	repaint();
+      	
+				if(SwingUtilities.isLeftMouseButton(e)){				//if left click
+					if(e.getX() < SHAPE_WIN_SIZE && e.getY() < SHAPE_WIN_SIZE){
+						int gridSize =  (int)(SHAPE_WIN_SIZE/(int)blockShape.getResolution().x);
+						int col = (int)(e.getX()/gridSize);					//which col is the clicked position
+						int row = (int)(e.getY()/gridSize);					//which row is the clicked position
+						blockShape.setShapeElement(paintColor, row, col);
+						setIsDirty(true);
+						repaint();
+					}	
+				}
+				else if(SwingUtilities.isRightMouseButton(e)){	//if right click
+					if(e.getX() < SHAPE_WIN_SIZE && e.getY() < SHAPE_WIN_SIZE){
+						int gridSize =  (int)(SHAPE_WIN_SIZE/(int)blockShape.getResolution().x);
+						int col = (int)(e.getX()/gridSize);					//which col is the clicked position
+						int row = (int)(e.getY()/gridSize);					//which row is the clicked position
+						blockShape.setShapeElement(BlockShape.DEFAULT_COLOR, row, col);
+						setIsDirty(true);
+						repaint();
+					}			
+				}
+
       }
     });
     
@@ -107,7 +149,6 @@ public class NewShapeWindowBuildPanel extends JPanel {
 		g.setColor(Color.orange);
 		for (int row = 0; row <= numOfRows; row++) {
 			g.drawLine(0,row*gridSize ,SHAPE_WIN_SIZE, row*gridSize);
-			//System.out.println("draw a line between:("+ 0+","+row*gridSize+") and ("+ SHAPE_WIN_SIZE+","+row*gridSize+")");
 		}
 		g.drawLine(0,SHAPE_WIN_SIZE-1, SHAPE_WIN_SIZE, SHAPE_WIN_SIZE-1);
 
