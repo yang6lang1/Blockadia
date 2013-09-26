@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -275,13 +276,20 @@ public class GameSidePanel extends JPanel implements ActionListener{
 	}
 	
 	private void showNewShapeWindow(){
-		window = new NewShapeWindow(frame,this);
+		window = new NewShapeWindow(frame,model,this,new BlockShape());
 		window.setLocationRelativeTo(frame);
 		window.setVisible(true);
 	}
 	
 	private void showEditShapeWindow(){
 		//TODO
+	}
+	
+	/**
+	 * This method is called when a shape is added or deleted from Config
+	 * */
+	public void updateComboBox(){
+		components = new JComboBox<BlockShape>(model.getComboModel());
 	}
 	/**
 	 * This is a helper class to be used to conveniently update the looks of button

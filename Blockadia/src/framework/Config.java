@@ -64,7 +64,6 @@ public class Config {
 		if(shapesMap.containsKey(shape.getShapeName())){
 			throw new ElementExistsException("The shape with the same name already exist");
 		}
-		shapesMap.put(shape.getShapeName(),shape);
 		shapesList.add(shape);
 	}
 	

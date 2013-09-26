@@ -68,6 +68,23 @@ public class NewShapeWindowBuildPanel extends JPanel {
 		return this.isDirty;
 	}
 	
+	public void setPaintedShape(BlockShape newShape){
+		this.blockShape = newShape;
+		BlockShape newShape2 = new BlockShape();//TODO
+		Color[][] testshape = newShape2.getShape();
+		for(int i = 0 ; i <testshape.length ; i++){
+			for(int j = 0 ; j< testshape[0].length;j++){
+				System.out.println(testshape[i][j].toString());
+			}
+		}
+		
+		repaint();
+	}
+	
+	public BlockShape getPaintedShape(){
+		return this.blockShape;
+	}
+	
 	public void addListeners(){
 		addMouseListener(new MouseAdapter() {
 			@Override

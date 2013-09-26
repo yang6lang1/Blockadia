@@ -73,13 +73,14 @@ public class GameModel {
 		}
 	}
 	
-	public void attachShapeToGame(BlockShape shape){
-		//TODO: make the config object dirty
+	public void attachShapeToGame(BlockShape shape) throws ElementExistsException{
+
 		try {
 			config.addGameShape(shape);
+			components.addElement(shape);
+			//TODO: make the config object dirty
 		} catch (ElementExistsException e) {
-			// TODO handle element exist exception
-			e.printStackTrace();
+			throw new ElementExistsException("The shape with the same name already exist.");
 		}
 	}
 }

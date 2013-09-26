@@ -157,6 +157,7 @@ public class NewShapeWindowSidePanel extends JPanel{
 					if(n == JOptionPane.YES_OPTION){
 						buildPanel.setGridResolution((Vec2)resolution.getSelectedItem());
 						currentResolutionSelection = resolution.getSelectedIndex();			// update the buffer
+						buildPanel.setIsDirty(false);																		// set isDirty
 					}
 					else if(n == JOptionPane.NO_OPTION){
 						resolution.setSelectedIndex(currentResolutionSelection);
@@ -165,7 +166,8 @@ public class NewShapeWindowSidePanel extends JPanel{
 				}else{
 					buildPanel.setGridResolution((Vec2)resolution.getSelectedItem());
 					currentResolutionSelection = resolution.getSelectedIndex();				// update the buffer
-				}
+					buildPanel.setIsDirty(false);																			// set isDirty
+				}	
 
 
 			}
@@ -173,5 +175,14 @@ public class NewShapeWindowSidePanel extends JPanel{
 
 	}
 
+	public String getNameFieldText(){
+		String shapeName = nameField.getText();
+		if(shapeName == null){
+			return "";
+		}else{
+			shapeName = shapeName.trim();
+		}
+		return shapeName;
+	}
 
 }

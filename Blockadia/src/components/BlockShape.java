@@ -29,7 +29,13 @@ public class BlockShape {
 	
 	public BlockShape(final String shapeName, final Color[][] shape){
 		this.blockShapeName = shapeName;
-		this.shape = shape;
+		this.shape = new Color[shape.length][shape[0].length];
+		for(int i=0 ; i< shape.length ; i++){
+			for(int j=0; j<shape[i].length; j++){
+				this.shape[i][j]= shape[i][j];
+			}
+		}
+
 	}
 	
 	public void setShapeName(final String shapeName){
